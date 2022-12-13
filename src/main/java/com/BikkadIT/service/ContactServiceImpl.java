@@ -26,31 +26,31 @@ public class ContactServiceImpl implements ContactServiceI  {
 
 	@Override
 	public List<Contact> getAllContact() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Contact> list = contactRepository.findAll();
+		return list;
 	}
 
 	@Override
 	public Contact getContactById(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public boolean updateContact(Contact contact) {
-		// TODO Auto-generated method stub
+	
 		return false;
 	}
 
 	@Override
 	public boolean deleteContact(Integer id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean deleteConatctSoft(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 }
