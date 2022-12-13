@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.BikkadIT.entities.Contact;
+import com.BikkadIT.props.AppConstants;
 import com.BikkadIT.repository.ContactRepository;
 @Service
 public class ContactServiceImpl implements ContactServiceI  {
@@ -49,11 +50,26 @@ public class ContactServiceImpl implements ContactServiceI  {
 	}
 	@Override
 	public boolean deleteContact(Integer id) {
-		return false;
+
+		boolean existsById = contactRepository.existsById(id);
+		if (existsById) {
+			contactRepository.deleteById(id);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public boolean deleteConatctSoft(Integer id) {
+		
+		Contact contact = contactRepository.findById(id).get();
+		if(contact !=null) {
+		
+			contact.setActiveSwitch(AppConstants.N);
+			contactRepository.save(contact);
+			return true;
+		}else
 		
 		return false;
 	}

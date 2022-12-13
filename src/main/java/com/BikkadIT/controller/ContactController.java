@@ -36,14 +36,15 @@ public class ContactController {
 
 		}
 	}
+
 	@GetMapping(value = "getAllContact", produces = "application/json")
 	public ResponseEntity<List<Contact>> getAllContact() {
 
 		List<Contact> allContact = contactServiceI.getAllContact();
 		Stream<Contact> stream = allContact.stream();
-		Stream<Contact> filter = stream.filter((contact) -> contact.getActiveSwitch()=='Y');
+		Stream<Contact> filter = stream.filter((contact) -> contact.getActiveSwitch() == 'Y');
 		List<Contact> list = filter.collect(Collectors.toList());
-		
+
 		return new ResponseEntity<List<Contact>>(list, HttpStatus.OK);
 
 	}
@@ -67,9 +68,24 @@ public class ContactController {
 			return new ResponseEntity<String>("Contact not Updated Successfully", HttpStatus.CREATED);
 
 		}
-	}@DeleteMapping(value="/deleteContact/{contactId}")
-	public ResponseEntity<String> deleteContact(@PathVariable Integer contactId){
+	}
+
+	@DeleteMapping(value = "/deleteContact/{contactId}")
+	public ResponseEntity<String> deleteContact(@PathVariable Integer contactId) {
 		boolean deleteContact = contactServiceI.deleteContact(contactId);
+
+		if (deleteContact) {
+			String msg = "Contact Deleted  Successfully";
+			return new ResponseEntity<String>(msg, HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<String>("Contact not Deleted Successfully", HttpStatus.CREATED);
+
+		}
+
+	}
+	@DeleteMapping(value="/deleteContactsoft/{contactId}")
+	public ResponseEntity<String> deleteContactSoft(@PathVariable Integer contactId){
+		boolean deleteContact = contactServiceI.deleteConatctSoft(contactId);
 		
 		if(deleteContact) {
 			String msg = "Contact Deleted  Successfully";
@@ -78,9 +94,6 @@ public class ContactController {
 			return new ResponseEntity<String>("Contact not Deleted Successfully", HttpStatus.CREATED);
 
 		}
-		
-		
-		
 		
 	}
 	
